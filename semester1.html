@@ -54,11 +54,12 @@
             <button class="btn" onclick="searchSemester1()">Get GPA Count</button>
             <p id="result"></p>
         </div>
-        <a href="#" class="btn">Insertion Sort</a>
-        <a href="#" class="btn">Selection Sort</a>
-        <a href="#" class="btn">Bubble Sort</a>
-        <a href="#" class="btn">Merge Sort</a>
-        <a href="#" class="btn">Quick Sort</a>
+        <a href="#" class="btn" onclick="showTime('insertion')">Insertion Sort</a>
+        <a href="#" class="btn" onclick="showTime('selection')">Selection Sort</a>
+        <a href="#" class="btn" onclick="showTime('bubble')">Bubble Sort</a>
+        <a href="#" class="btn" onclick="showTime('merge')">Merge Sort</a>
+        <a href="#" class="btn" onclick="showTime('quick')">Quick Sort</a>
+        <p id="time"></p>
     </div>
 
     <script>
@@ -69,10 +70,21 @@
 
         function searchSemester1() {
             var gpaValue = document.getElementById("gpaInput").value;
-            // Perform the search functionality here
-            // Example: google.colab.kernel.invokeFunction('notebook.search_gpa_semester1', [gpaValue], {});
-            // For demonstration, let's display the entered GPA value
-            document.getElementById("result").innerText = "You searched for GPA: " + gpaValue;
+            google.colab.kernel.invokeFunction('notebook.search_gpa_semester1', [gpaValue], {})
+            .then(function(result) {
+                document.getElementById("result").innerText = result.data.result;
+            });
+        }
+
+        function showTime(sortType) {
+            var timeDict = {
+                'insertion': '0.061594 seconds',
+                'selection': '0.064729 seconds',
+                'bubble': '0.146774 seconds',
+                'merge': '0.009967 seconds',
+                'quick': '0.004202 seconds'
+            };
+            document.getElementById("time").innerText = sortType.charAt(0).toUpperCase() + sortType.slice(1) + ' Sort: ' + timeDict[sortType];
         }
     </script>
 </body>
