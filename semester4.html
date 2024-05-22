@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semester 4</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,17 +40,58 @@
         .btn:active {
             transform: scale(1.02);
         }
+        #searchBar {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Semester 4</h1>
-        <a href="#" class="btn">Search</a>
-        <a href="#" class="btn">Insertion Sort</a>
-        <a href="#" class="btn">Selection Sort</a>
-        <a href="#" class="btn">Bubble Sort</a>
-        <a href="#" class="btn">Merge Sort</a>
-        <a href="#" class="btn">Quick Sort</a>
+        <button class="btn" onclick="showSearchBar()">Search</button>
+        <div id="searchBar">
+            <input type="text" id="gpaInput" placeholder="Enter GPA value">
+            <button class="btn" onclick="searchSemester4()">Get GPA Count</button>
+            <p id="result"></p>
+        </div>
+        <a href="#" class="btn" onclick="showTime('insertion')">Insertion Sort</a>
+        <a href="#" class="btn" onclick="showTime('selection')">Selection Sort</a>
+        <a href="#" class="btn" onclick="showTime('bubble')">Bubble Sort</a>
+        <a href="#" class="btn" onclick="showTime('merge')">Merge Sort</a>
+        <a href="#" class="btn" onclick="showTime('quick')">Quick Sort</a>
+
+        <p id="time"></p>
     </div>
+
+    <script>
+        function showSearchBar() {
+            var searchBar = document.getElementById("searchBar");
+            searchBar.style.display = "block";
+        }
+
+        function searchSemester4() {
+            var gpaValue = document.getElementById("gpaInput").value;
+            // Make an HTTP POST request to your server endpoint
+            axios.post('/search_gpa_semester4', { gpaValue: gpaValue })
+            .then(function(response) {
+                document.getElementById("result").innerText = response.data.result;
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        }
+
+        function showTime(sortType) {
+            var timeDict = {
+                'insertion': '0.060619 seconds',
+                'selection': '0.063131 seconds',
+                'bubble': '0.131314 seconds',
+                'merge': '0.008523 seconds',
+                'quick': '0.003615 seconds'
+            };
+            document.getElementById("time").innerText = sortType.charAt(0).toUpperCase() + sortType.slice(1) + ' Sort: ' + timeDict[sortType];
+        }
+    </script>
 </body>
 </html>
