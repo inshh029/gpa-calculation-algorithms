@@ -44,12 +44,24 @@
 <body>
     <div class="container">
         <h1>Semester 1</h1>
-        <a href="#" class="btn">Search</a>
+        <input type="text" id="gpaInput" placeholder="Enter GPA value">
+        <button class="btn" onclick="searchSemester1()">Search</button>
         <a href="#" class="btn">Insertion Sort</a>
         <a href="#" class="btn">Selection Sort</a>
         <a href="#" class="btn">Bubble Sort</a>
         <a href="#" class="btn">Merge Sort</a>
         <a href="#" class="btn">Quick Sort</a>
     </div>
+
+    <script>
+        function searchSemester1() {
+            var gpaValue = document.getElementById("gpaInput").value;
+            // Perform the search functionality here
+            // For example, you can use an alert to display the GPA value entered by the user
+            alert("You searched for GPA: " + gpaValue);
+            // You can also call a function to perform the actual search operation in your Colab notebook
+            // Example: google.colab.kernel.invokeFunction('notebook.search_gpa_semester1', [gpaValue], {});
+        }
+    </script>
 </body>
 </html>
