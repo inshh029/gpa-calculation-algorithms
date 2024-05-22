@@ -46,13 +46,18 @@
         <h1>Semester 1</h1>
         <input type="text" id="gpaInput" placeholder="Enter GPA value">
         <button class="btn" onclick="searchSemester1()">Search</button>
+        <p id="result"></p> <!-- Add a paragraph element to display the result -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function searchSemester1() {
             var gpaValue = document.getElementById("gpaInput").value;
-            google.colab.kernel.invokeFunction('notebook.search_gpa_semester1', [gpaValue], {});
+            google.colab.kernel.invokeFunction('notebook.search_gpa_semester1', [gpaValue], {})
+            .then(function(result) {
+                // Display the result in the HTML
+                document.getElementById("result").innerText = result.data.result;
+            });
         }
     </script>
 </body>
